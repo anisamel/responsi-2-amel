@@ -1,0 +1,7 @@
+{
+  "name": "NilaiList",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
