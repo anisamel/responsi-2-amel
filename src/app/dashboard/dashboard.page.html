@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Ionic App</title>
+
+  <style>
+    ion-content {
+      --background: #454747;
+       --background-image: url('D:\Semester 5\Prak Pem Mobile\ionicproject\sinau\src\assets\bg.jpg');
+      --background-attachment: fixed;
+      --background-position: center;
+    }
+  </style>
+</head>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Data Nilai Siswa</ion-title>
+    <ion-button color="danger" slot="end" (click)="logout()">
+      <ion-icon slot="start" ios="exit-outline" md="exit-sharp"></ion-icon>
+      <ion-label>Logout</ion-label>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-button (click)="open_modal_tambah(true)" expand="block" shape="round"
+      ><ion-icon name="add"></ion-icon>Tambah Siswa</ion-button
+    >
+  </ion-card>
+  <ion-card *ngFor="let item of dataSiswa">
+    <ion-item>
+      <ion-label>
+        {{item.nama}}
+        <p>Nilai : {{item.nilai}}</p>
+      </ion-label>
+      <ion-button color="danger" slot="end" (click)="hapusSiswa(item.id)"
+       shape="round" ><ion-icon name="trash"></ion-icon>Hapus</ion-button
+      >
+      <ion-button expand="block" color="success" (click)="open_modal_edit(true,item.id)"
+        shape="round"><ion-icon name="create"></ion-icon>Edit</ion-button
+      >
+    </ion-item>
+  </ion-card>
+
+  <!-- ini untuk modal tambah -->
+  <ion-modal [isOpen]="modal_tambah">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button color="danger" shape="round" (click)="cancel()">Batal</ion-button>
+          </ion-buttons>
+          <ion-title>Tambah Siswa</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-input
+            label="Nama Siswa"
+            labelPlacement="floating"
+            required
+            [(ngModel)]="nama"
+            placeholder="Masukkan Nama Siswa"
+            type="text"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="nilai Siswa"
+            labelPlacement="floating"
+            required
+            [(ngModel)]="nilai"
+            placeholder="Masukkan nilai Siswa"
+            type="text"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <ion-button
+              type="button"
+              (click)="tambahSiswa()"
+              color="primary"
+              shape="full"
+              expand="block"
+              shape="round"
+              >
+              <ion-icon name="add"></ion-icon>
+              Tambah Siswa
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- ini untuk modal edit -->
+  <ion-modal [isOpen]="modal_edit">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button color="danger" shape="round" (click)="cancel()">Batal</ion-button>
+          </ion-buttons>
+          <ion-title>Edit Siswa</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-input
+            label="Nama Siswa"
+            labelPlacement="floating"
+            required
+            [(ngModel)]="nama"
+            placeholder="Masukkan Nama Siswa"
+            type="text"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="nilai Siswa"
+            labelPlacement="floating"
+            required
+            [(ngModel)]="nilai"
+            placeholder="Masukkan nilai Siswa"
+            type="text"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-input required [(ngModel)]="id" type="hidden"> </ion-input>
+        <ion-row>
+          <ion-col>
+            <ion-button
+              type="button"
+              (click)="editSiswa()"
+              color="primary"
+              shape="full"
+              expand="block"
+              shape="round"
+              color="success"
+              >
+              <ion-icon name="create"></ion-icon>
+              Edit Siswa
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Ionic App</title>
+
+  <style>
+    ion-content {
+      --background: #454747;
+       
+      --background-attachment: fixed;
+      --background-position: center;
+    }
+  </style>
+</head>
+<ion-header [translucent]="true" color="primary" class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Data Nilai</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card *ngFor="let item of dataNilai">
+    <ion-item>
+      <ion-label>
+        {{item.pelajaran}}
+        <p>{{item.nilai}}</p>
+      </ion-label>
+      <ion-button color="danger" slot="end" (click)="hapusNilai(item.id)" shape="round">
+        <ion-icon name="trash"></ion-icon>
+        Hapus
+      </ion-button>
+      <ion-button expand="block" (click)="open_modal_edit(true,item.id)" shape="round">
+        <ion-icon name="create"></ion-icon>
+        Edit
+      </ion-button>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-button (click)="open_modal_tambah(true)" expand="block" shape="round">
+      <ion-icon name="add"></ion-icon>
+      Tambah Nilai
+    </ion-button>
+  </ion-card>
+
+  <!-- ini untuk modal tambah -->
+  <ion-modal [isOpen]="modal_tambah">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button color="danger" (click)="cancel()" expand="block" shape="round">Batal</ion-button>
+          </ion-buttons>
+          <ion-title>Tambah Nilai</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-input
+            label="pelajaran Nilai"
+            labelPlacement="floating"
+            required
+            [(ngModel)]="pelajaran"
+            placeholder="Masukkan pelajaran Nilai"
+            type="text"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="nilai Nilai"
+            labelPlacement="floating"
+            required
+            [(ngModel)]="nilai"
+            placeholder="Masukkan nilai Nilai"
+            type="text"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            
+            <ion-button
+              type="button"
+              (click)="tambahNilai()"
+              color="primary"
+              shape="full"
+              expand="block"
+              shape="round"
+            >
+            <ion-icon name="add"></ion-icon>
+            Tambah Nilai
+            
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- ini untuk modal edit -->
+  <ion-modal [isOpen]="modal_edit">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button color="danger" (click)="cancel()" expand="block" shape="round">Batal</ion-button>
+          </ion-buttons>
+          <ion-title>Edit Nilai</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-input
+            label="pelajaran Nilai"
+            labelPlacement="floating"
+            required
+            [(ngModel)]="pelajaran"
+            placeholder="Masukkan pelajaran Nilai"
+            type="text"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="nilai Nilai"
+            labelPlacement="floating"
+            required
+            [(ngModel)]="nilai"
+            placeholder="Masukkan nilai Nilai"
+            type="text"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-input required [(ngModel)]="id" type="hidden"> </ion-input>
+        <ion-row>
+          <ion-col>
+            <ion-button
+              type="button"
+              (click)="editNilai()"
+              color="primary"
+              shape="full"
+              expand="block"
+              shape="round"
+              >
+              <ion-icon name="add"></ion-icon>
+              Edit Nilai
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+</html>
